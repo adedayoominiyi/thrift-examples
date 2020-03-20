@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.adedayoominiyi</groupId>
+    <artifactId>ThriftTests</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>0.13.0</version>
+          </dependency>
+          <!-- https://mvnrepository.com/artifact/com.twitter/scrooge-core -->
+          <dependency>
+            <groupId>com.twitter</groupId>
+            <artifactId>scrooge-core_2.13</artifactId>
+            <version>20.3.0</version>
+          </dependency>
+          <!-- needed if the finagle flag is provided -->
+         <dependency>
+           <groupId>com.twitter</groupId>
+           <artifactId>finagle-thrift_2.9.2</artifactId>
+           <version>6.5.1</version>
+         </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.twitter</groupId>
+                <!-- I do not seem to be able to generate Java files without a Java package because, 
+                    if a namespace does not exist in the .thrift files, Scrooge will add a 
+                    "package thrift" to the Java files -->
+                <!-- https://twitter.github.io/scrooge/MVNPlugin.html -->
+                <artifactId>scrooge-maven-plugin</artifactId>
+                <!-- https://mvnrepository.com/artifact/com.twitter/scrooge-maven-plugin/20.3.0 -->
+                <version>20.3.0</version>
+                <configuration>
+                    <thriftNamespaceMappings>
+                        <!-- This allows an override of the namespace in the .thrift files to whatever 
+                        I want as a package name in the final Java files -->
+                        <thriftNamespaceMapping>
+                            <from>com.dayo.thrift.test</from>
+                            <to>com.dayo.thrift.test.mapped</to>
+                        </thriftNamespaceMapping>
+                    </thriftNamespaceMappings>
+                    <!-- default is scala -->
+                    <language>java</language> 
+                    <thriftOpts>
+                    <!-- add other Scrooge command line options using thriftOpts -->
+                    <thriftOpt>--finagle</thriftOpt>
+                    </thriftOpts>
+                    <!-- tell scrooge to not to build the extracted thrift files (defaults to true) -->
+                    <buildExtractedThrift>false</buildExtractedThrift>
+                    <thriftSourceRoot>${basedir}/src/main/resources/thrift</thriftSourceRoot>
+                    <!-- Whether or not to skip creation of scrooge folder in output directory, if need skip -->
+                    <includeOutputDirectoryNamespace>false</includeOutputDirectoryNamespace>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>thrift-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>thrift-test-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

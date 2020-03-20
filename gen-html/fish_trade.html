@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<title>Thrift module: fish_trade</title></head><body>
+<div class="container-fluid">
+<h1>Thrift module: fish_trade</h1>
+<pre>Apache Thrift IDL definition for the TradeHistory service interface
+</pre><br/><table class="table-bordered table-striped table-condensed"><thead><tr><th>Module</th><th>Services</th><th>Data types</th><th>Constants</th></tr></thead><tbody>
+<tr>
+<td>fish_trade</td><td><a href="#Svc_TradeHistory">TradeHistory</a><br/>
+<ul>
+<li><a href="#Fn_TradeHistory_GetLastSale">GetLastSale</a></li>
+<li><a href="#Fn_TradeHistory_GetLastSaleList">GetLastSaleList</a></li>
+</ul>
+</td>
+<td><a href="#Struct_BadFish">BadFish</a><br/>
+<a href="#Struct_BadFishes">BadFishes</a><br/>
+<a href="#Struct_FishSizeUnit">FishSizeUnit</a><br/>
+<a href="#Enum_Market">Market</a><br/>
+<a href="#Struct_TimeStamp">TimeStamp</a><br/>
+<a href="#Struct_Trade">Trade</a><br/>
+<a href="#Typedef_USD">USD</a><br/>
+</td>
+<td></td>
+</tr></tbody></table>
+<hr/><h2 id="Enumerations">Enumerations</h2>
+<div class="definition"><h3 id="Enum_Market">Enumeration: Market</h3>
+<br/><table class="table-bordered table-striped table-condensed">
+<tr><td><code>Unknown</code></td><td><code>0</code></td><td>
+</td></tr>
+<tr><td><code>Portland</code></td><td><code>1</code></td><td>
+</td></tr>
+<tr><td><code>Seattle</code></td><td><code>2</code></td><td>
+</td></tr>
+<tr><td><code>SanFrancisco</code></td><td><code>3</code></td><td>
+</td></tr>
+<tr><td><code>Vancouver</code></td><td><code>4</code></td><td>
+</td></tr>
+<tr><td><code>Anchorage</code></td><td><code>5</code></td><td>
+</td></tr>
+</table></div>
+<hr/><h2 id="Typedefs">Type declarations</h2>
+<div class="definition"><h3 id="Typedef_USD">Typedef: USD</h3>
+<p><strong>Base type:</strong>&nbsp;<code>double</code></p>
+</div>
+<hr/><h2 id="Structs">Data structures</h2>
+<div class="definition"><h3 id="Struct_TimeStamp">Struct: TimeStamp</h3>
+<table class="table-bordered table-striped table-condensed"><thead><tr><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></tr></thead><tbody>
+<tr><td>1</td><td>year</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>month</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>day</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>hour</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>5</td><td>minute</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>6</td><td>second</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>7</td><td>micros</td><td><code>i32</code></td><td></td><td>optional</td><td></td></tr>
+</tbody></table><br/></div><div class="definition"><h3 id="Struct_FishSizeUnit">Union: FishSizeUnit</h3>
+<table class="table-bordered table-striped table-condensed"><thead><tr><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></tr></thead><tbody>
+<tr><td>1</td><td>pounds</td><td><code>i32</code></td><td></td><td>optional</td><td></td></tr>
+<tr><td>2</td><td>kilograms</td><td><code>i32</code></td><td></td><td>optional</td><td></td></tr>
+<tr><td>3</td><td>standard_crates</td><td><code>i16</code></td><td></td><td>optional</td><td></td></tr>
+<tr><td>4</td><td>metric_tons</td><td><code>double</code></td><td></td><td>optional</td><td></td></tr>
+</tbody></table><br/></div><div class="definition"><h3 id="Struct_Trade">Struct: Trade</h3>
+<table class="table-bordered table-striped table-condensed"><thead><tr><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></tr></thead><tbody>
+<tr><td>1</td><td>fish</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>price</td><td><code><a href="#Struct_USD">USD</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>amount</td><td><code><a href="#Struct_FishSizeUnit">FishSizeUnit</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>date_time</td><td><code><a href="#Struct_TimeStamp">TimeStamp</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>5</td><td>market</td><td><code><a href="#Enum_Market">Market</a></code></td><td></td><td>default</td><td><code><code><a href="#Const_Market.Unknown">Market.Unknown</a></code></code></td></tr>
+</tbody></table><br/></div><div class="definition"><h3 id="Struct_BadFish">Exception: BadFish</h3>
+<table class="table-bordered table-striped table-condensed"><thead><tr><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></tr></thead><tbody>
+<tr><td>1</td><td>fish</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>error_code</td><td><code>i16</code></td><td></td><td>default</td><td></td></tr>
+</tbody></table><br/></div><div class="definition"><h3 id="Struct_BadFishes">Exception: BadFishes</h3>
+<table class="table-bordered table-striped table-condensed"><thead><tr><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></tr></thead><tbody>
+<tr><td>1</td><td>fish_errors</td><td><code>map&lt;<code>string</code>, <code>i16</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+</tbody></table><br/></div><hr/><h2 id="Services">Services</h2>
+<h3 id="Svc_TradeHistory">Service: TradeHistory</h3>
+<div class="definition"><h4 id="Fn_TradeHistory_GetLastSale">Function: TradeHistory.GetLastSale</h4>
+<pre><code><a href="#Struct_Trade">Trade</a></code> GetLastSale(<code>string</code> fish)
+    throws <code><a href="#Struct_BadFish">BadFish</a></code>
+</pre><pre>Return most recent trade report for fish type
+
+@param fish the symbol for the fish traded
+@return the most recent trade report for the fish
+@throws BadFish if fish has no trade history or is invalid
+</pre><br/></div><div class="definition"><h4 id="Fn_TradeHistory_GetLastSaleList">Function: TradeHistory.GetLastSaleList</h4>
+<pre><code>list&lt;<code><a href="#Struct_Trade">Trade</a></code>&gt;</code> GetLastSaleList(<code>set&lt;<code>string</code>&gt;</code> fish,
+                            <code>bool</code> fail_fast = false)
+    throws <code><a href="#Struct_BadFish">BadFish</a></code>, <code><a href="#Struct_BadFishes">BadFishes</a></code>
+</pre><pre>Return most recent trade report for multiple fish types
+
+@param fish the symbols for the fish to return trades for
+@param fail_fast if set true the first invalid fish symbol is thrown
+                 as a BadFish exception, if set false all of the bad
+                 fish symbols are thrown using the BadFishes
+                 exception.
+@return list of trades cooresponding to the fish supplied, the list
+        returned need not be in the same order as the input list
+@throws BadFish first fish discovered to be invalid or without a
+                trade history (only occurs if skip_bad_fish=false)
+</pre><br/></div></div></body></html>
